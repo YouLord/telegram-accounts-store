@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Аккаунты | Купить с мгновенной выдачей</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --telegram-blue: #0088cc;
+            --dark-bg: #0f0f23;
+            --card-bg: #1a1a2e;
+            --success: #00c853;
+            --danger: #ff5252;
+            --warning: #ff9800;
+            --purple: #9c27b0;
+            --gold: #ffd700;
+            --orange: #ff6b35;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1a2e 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Шапка */
+        header {
+            background: rgba(0, 40, 85, 0.9);
+            padding: 25px 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 3px solid var(--telegram-blue);
+            box-shadow: 0 10px 30px rgba(0, 136, 204, 0.3);
+            position: relative;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: var(--telegram-blue);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .tg-icon {
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* Основной контент */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 1100px) {
+            .main-content {
+                flex-direction: column;
+            }
+        }
+        
+        /* Левая колонка - Страны */
+        .countries-column {
+            flex: 1;
+        }
+        
+        /* Правая колонка - Пакеты */
+        .packages-column {
+            flex: 1;
+        }
+        
+        /* Карточки */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h2 {
+            color: #4fc3f7;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4fc3f7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h3 {
+            color: #80deea;
+            margin: 15px 0;
+        }
+        
+        /* Страны */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .country-card {
+            background: rgba(30, 60, 114, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .country-card:hover {
+            border-color: #4fc3f7;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.2);
+        }
+        
+        .country-flag {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .country-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #80deea;
+            margin-bottom: 10px;
+        }
+        
+        .country-price {
+            font-size: 1.8rem;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .country-days {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .view-accounts-btn {
+            background: linear-gradient(135deg, var(--telegram-blue), #006699);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
+        
+        .view-accounts-btn:hover {
+            background: linear-gradient(135deg, #0099cc, var(--telegram-blue));
+            transform: scale(1.02);
+        }
+        
+        /* Пакеты */
+        .packages-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .package-card {
+            background: rgba(41, 128, 185, 0.3);
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .package-card:hover {
+            border-color: #4fc3f7;
+            transform: translateX(5px);
+        }
+        
+        .package-name {
+            font-size: 1.4rem;
+            color: #ffeb3b;
+            margin-bottom: 10px;
+        }
+        
+        .package-desc {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .package-price {
+            font-size: 2rem;
+            color: var(--success);
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .buy-package-btn {
+            background: linear-gradient(135deg, var(--success), #64dd17);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
+        
+        .buy-package-btn:hover {
+            background: linear-gradient(135deg, #00e676, var(--success));
+            transform: scale(1.02);
+        }
+        
+        /* Список аккаунтов (отдельная страница) */
+        .accounts-section {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .accounts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .back-btn {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .accounts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .account-card {
+            background: rgba(30, 60, 114, 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+        
+        .account-card:hover {
+            border-color: #4fc3f7;
+            transform: translateY(-3px);
+        }
+        
+        .account-id {
+            font-family: monospace;
+            color: #ff9800;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .account-2fa {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .has-2fa {
+            background: rgba(0, 200, 83, 0.2);
+            color: var(--success);
+        }
+        
+        .no-2fa {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--danger);
+        }
+        
+        .account-price {
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .buy-account-btn {
+            background: linear-gradient(135deg, var(--telegram-blue), #006699);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.3s;
+        }
+        
+        .buy-account-btn:hover {
+            background: linear-gradient(135deg, #0099cc, var(--telegram-blue));
+        }
+        
+        /* Корзина */
+        .cart-section {
+            background: rgba(255, 193, 7, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px dashed #ffc107;
+        }
+        
+        .cart-items {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            min-height: 100px;
+        }
+        
+        .cart-empty {
+            color: #888;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .cart-total {
+            font-size: 1.8rem;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: right;
+        }
+        
+        /* Оплата */
+        .payment-section {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .payment-method {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .payment-method.active {
+            border-color: var(--success);
+            background: rgba(0, 200, 83, 0.1);
+        }
+        
+        .payment-method:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .card-details {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.3rem;
+            text-align: center;
+            color: #ffeb3b;
+            letter-spacing: 3px;
+            border: 1px solid #ff9800;
+        }
+        
+        .payment-comment {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: monospace;
+            color: #00ff88;
+        }
+        
+        .check-payment-btn {
+            background: linear-gradient(135deg, var(--warning), #ff5722);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            margin: 30px 0;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        
+        .check-payment-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, #ffb74d, var(--warning));
+            transform: scale(1.02);
+        }
+        
+        .check-payment-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        
+        /* Выдача товара */
+        .delivery-section {
+            background: rgba(0, 200, 83, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid var(--success);
+            display: none;
+        }
+        
+        .account-data {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .download-btn {
+            background: linear-gradient(135deg, var(--telegram-blue), #006699);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: linear-gradient(135deg, #0099cc, var(--telegram-blue));
+        }
+        
+        .copy-btn {
+            background: rgba(0, 136, 204, 0.3);
+            color: white;
+            border: 1px solid var(--telegram-blue);
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 136, 204, 0.5);
+        }
+        
+        /* Ввод кода */
+        .code-section {
+            background: rgba(156, 39, 176, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid var(--purple);
+            display: none;
+        }
+        
+        .phone-input {
+            width: 100%;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: 2px solid #4fc3f7;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+        
+        .send-code-btn {
+            background: linear-gradient(135deg, var(--purple), #673ab7);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        
+        .send-code-btn:hover {
+            background: linear-gradient(135deg, #ba68c8, var(--purple));
+        }
+        
+        .code-display {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-align: center;
+            display: none;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Админ панель */
+        .admin-panel {
+            display: none;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            border: 3px solid #ff6b6b;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .admin-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid #4fc3f7;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+        
+        .admin-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid #4fc3f7;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            resize: vertical;
+            font-family: monospace;
+        }
+        
+        .admin-file-input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px dashed #4fc3f7;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, var(--purple), #673ab7);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: linear-gradient(135deg, #ba68c8, var(--purple));
+        }
+        
+        /* Таблицы в админке */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .admin-table th {
+            background: rgba(0, 136, 204, 0.3);
+            padding: 15px;
+            text-align: left;
+            color: #4fc3f7;
+        }
+        
+        .admin-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Статус аккаунта */
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .status-available {
+            background: rgba(0, 200, 83, 0.2);
+            color: var(--success);
+        }
+        
+        .status-sold {
+            background: rgba(255, 82, 82, 0.2);
+            color: var(--danger);
+        }
+        
+        /* Правила/FAQ */
+        .faq-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .faq-item {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        .faq-question {
+            color: #4fc3f7;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            color: #aaa;
+            display: none;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: none;
+            z-index: 1000;
+            max-width: 400px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .info {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+        }
+        
+        /* Лоадер */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Адаптив */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-details {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+            
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Прогресс бар для проверки оплаты */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(90deg, var(--telegram-blue), #0099cc);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            text-align: center;
+            margin: 10px 0;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header>
+            <div class="header-top">
+                <h1><i class="fab fa-telegram tg-icon"></i> Telegram Аккаунты</h1>
+                <button class="admin-btn" id="toggleAdminBtn">
+                    <i class="fas fa-lock"></i> Админ-панель
+                </button>
+            </div>
+            <p class="subtitle">Telegram аккаунты под ключ | Купить за 1 минуту</p>
+            <p class="subtitle">Поддержка: @AleshaPopovlch | Реклама: @MalayaFunPay</p>
+        </header>
+
+        <!-- Основной контент -->
+        <div class="main-content">
+            <!-- Левая колонка - Страны -->
+            <div class="countries-column">
+                <div class="card">
+                    <h2><i class="fas fa-globe"></i> Выбор страны</h2>
+                    <div class="countries-grid" id="countriesGrid">
+                        <!-- Страны загружаются через JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Правая колонка - Пакеты -->
+            <div class="packages-column">
+                <div class="card">
+                    <h2><i class="fas fa-box-open"></i> Выгодные пакеты</h2>
+                    <div class="packages-list" id="packagesList">
+                        <!-- Пакеты загружаются через JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Список аккаунтов (скрыт по умолчанию) -->
+        <div class="accounts-section" id="accountsSection">
+            <div class="accounts-header">
+                <h2 id="currentCountryTitle"></h2>
+                <button class="back-btn" id="backToCountriesBtn">
+                    <i class="fas fa-arrow-left"></i> Назад к странам
+                </button>
+            </div>
+            <div class="accounts-grid" id="accountsGrid">
+                <!-- Аккаунты загружаются через JS -->
+            </div>
+        </div>
+
+        <!-- Корзина -->
+        <div class="cart-section">
+            <h2><i class="fas fa-shopping-cart"></i> Ваша корзина</h2>
+            <div class="cart-items" id="cartItems">
+                <div class="cart-empty">Корзина пуста. Добавьте товары из каталога.</div>
+            </div>
+            <div class="cart-total" id="cartTotal">Итого: 0 ₽</div>
+            <button class="check-payment-btn" id="proceedToPaymentBtn" disabled>
+                <i class="fas fa-credit-card"></i> ПЕРЕЙТИ К ОПЛАТЕ
+            </button>
+        </div>
+
+        <!-- Оплата -->
+        <div class="payment-section" id="paymentSection" style="display: none;">
+            <h2><i class="fas fa-money-bill-wave"></i> Оплата заказа</h2>
+            <div id="orderDetails"></div>
+            
+            <h3><i class="fas fa-wallet"></i> Выберите способ оплаты:</h3>
+            <div class="payment-methods">
+                <div class="payment-method active" data-method="card">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h4>Банковская карта РФ</h4>
+                    <p>Тинькофф, Сбер, Альфа</p>
+                </div>
+                <div class="payment-method" data-method="crypto">
+                    <div class="payment-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h4>Криптовалюта</h4>
+                    <p>USDT (TRC20), BTC</p>
+                </div>
+                <div class="payment-method" data-method="yoomoney">
+                    <div class="payment-icon">
+                        <i class="fas fa-ruble-sign"></i>
+                    </div>
+                    <h4>ЮMoney</h4>
+                    <p>Яндекс.Деньги</p>
+                </div>
+            </div>
+
+            <!-- Детали оплаты картой -->
+            <div id="cardPaymentDetails">
+                <h3><i class="fas fa-university"></i> Реквизиты для оплаты:</h3>
+                <div class="card-details">2200 7017 0606 0735</div>
+                <p><strong>Получатель:</strong> ИП Сидоров А.В.</p>
+                <p><strong>Банк:</strong> Тинькофф</p>
+                <p><strong>Сумма к оплате:</strong> <span id="paymentAmount">0</span> ₽</p>
+                <p><strong>Комментарий к переводу:</strong></p>
+                <div class="payment-comment" id="paymentComment">TG-ORDER-12345</div>
+                <p style="color: var(--warning); margin-top: 15px;">
+                    <i class="fas fa-exclamation-circle"></i> Обязательно укажите точный комментарий!
+                </p>
+            </div>
+
+            <!-- Прогресс проверки оплаты -->
+            <div class="progress-container" id="paymentProgress">
+                <div class="progress-bar" id="progressBarFill"></div>
+                <div class="progress-text" id="progressText">Проверка оплаты...</div>
+            </div>
+
+            <button class="check-payment-btn" id="checkPaymentBtn">
+                <i class="fas fa-search-dollar"></i> ПРОВЕРИТЬ ОПЛАТУ
+            </button>
+        </div>
+
+        <!-- Выдача товара -->
+        <div class="delivery-section" id="deliverySection">
+            <h2><i class="fas fa-gift"></i> Ваш аккаунт готов!</h2>
+            <div class="account-data" id="accountData">
+                <!-- Данные аккаунта будут здесь -->
+            </div>
+            <div style="text-align: center;">
+                <button class="download-btn" id="downloadSessionBtn">
+                    <i class="fas fa-download"></i> СКАЧАТЬ СЕССИЮ
+                </button>
+                <button class="copy-btn" id="copyAccountDataBtn">
+                    <i class="fas fa-copy"></i> КОПИРОВАТЬ ДАННЫЕ
+                </button>
+            </div>
+            <div style="margin-top: 30px;">
+                <button class="send-code-btn" id="showCodeSectionBtn">
+                    <i class="fas fa-mobile-alt"></i> ПОЛУЧИТЬ КОД ДЛЯ ВХОДА
+                </button>
+            </div>
+        </div>
+
+        <!-- Ввод номера телефона и получение кода -->
+        <div class="code-section" id="codeSection">
+            <h2><i class="fas fa-sms"></i> Получение кода для входа</h2>
+            <p>Введите номер телефона привязанный к аккаунту для получения кода подтверждения:</p>
+            <input type="tel" class="phone-input" id="phoneInput" placeholder="+7 123 456 78 90">
+            <button class="send-code-btn" id="sendCodeBtn">
+                <i class="fas fa-paper-plane"></i> ПОЛУЧИТЬ КОД
+            </button>
+            <div class="code-display" id="codeDisplay">
+                <!-- Код будет здесь -->
+            </div>
+        </div>
+
+        <!-- Админ панель -->
+        <div class="admin-panel" id="adminPanel">
+            <h2 style="color: #ff6b6b;"><i class="fas fa-tools"></i> Панель администратора</h2>
+            
+            <div class="admin-grid">
+                <!-- Добавление страны -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-plus-circle"></i> Добавить страну</h3>
+                    <input type="text" class="admin-input" id="newCountryName" placeholder="Название страны">
+                    <input type="text" class="admin-input" id="newCountryFlag" placeholder="Эмоджи флага (например: 🇺🇸)">
+                    <input type="number" class="admin-input" id="newCountryPrice" placeholder="Цена от (в рублях)">
+                    <input type="number" class="admin-input" id="newCountryDays" placeholder="Отлега (дней)">
+                    <button class="save-btn" onclick="addCountry()">
+                        <i class="fas fa-save"></i> Добавить страну
+                    </button>
+                </div>
+
+                <!-- Добавление пакета -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-box"></i> Добавить пакет</h3>
+                    <input type="text" class="admin-input" id="newPackageName" placeholder="Название пакета">
+                    <textarea class="admin-input" id="newPackageDesc" placeholder="Описание пакета"></textarea>
+                    <input type="number" class="admin-input" id="newPackagePrice" placeholder="Цена (руб.)">
+                    <button class="save-btn" onclick="addPackage()">
+                        <i class="fas fa-save"></i> Добавить пакет
+                    </button>
+                </div>
+
+                <!-- Добавление аккаунта -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-user-plus"></i> Добавить аккаунт</h3>
+                    <select class="admin-input" id="accountCountrySelect">
+                        <option value="">Выберите страну</option>
+                    </select>
+                    <input type="text" class="admin-input" id="accountPhone" placeholder="Номер телефона">
+                    <input type="text" class="admin-input" id="accountLogin" placeholder="Логин (если есть)">
+                    <input type="text" class="admin-input" id="accountPassword" placeholder="Пароль">
+                    <textarea class="admin-textarea" id="accountSession" placeholder="Сессия (файл или строка)"></textarea>
+                    <select class="admin-input" id="account2FA">
+                        <option value="no">2FA: Нет</option>
+                        <option value="yes">2FA: Да</option>
+                    </select>
+                    <input type="number" class="admin-input" id="accountPrice" placeholder="Цена (руб.)">
+                    <button class="save-btn" onclick="addAccount()">
+                        <i class="fas fa-save"></i> Добавить аккаунт
+                    </button>
+                </div>
+
+                <!-- Массовое добавление аккаунтов -->
+                <div class="admin-section">
+                    <h3><i class="fas fa-file-upload"></i> Массовое добавление</h3>
+                    <select class="admin-input" id="bulkCountrySelect">
+                        <option value="">Выберите страну для всех</option>
+                    </select>
+                    <textarea class="admin-textarea" id="bulkAccounts" placeholder="Вставьте аккаунты в формате:
+номер_телефона:пароль:цена
++79123456789:pass123:299
++79001234567:password456:399"></textarea>
+                    <button class="save-btn" onclick="addBulkAccounts()">
+                        <i class="fas fa-upload"></i> Добавить все
+                    </button>
+                </div>
+            </div>
+
+            <!-- Управление аккаунтами -->
+            <div style="margin-top: 40px;">
+                <h3><i class="fas fa-list"></i> Управление аккаунтами</h3>
+                <div id="accountsTable">
+                    <!-- Таблица аккаунтов -->
+                </div>
+            </div>
+
+            <!-- Статистика -->
+            <div style="margin-top: 40px;">
+                <h3><i class="fas fa-chart-line"></i> Статистика</h3>
+                <div id="adminStats" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px;">
+                    Загрузка статистики...
+                </div>
+            </div>
+        </div>
+
+        <!-- Правила/FAQ -->
+        <div class="faq-section">
+            <h2><i class="fas fa-question-circle"></i> Правила и FAQ</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Как происходит покупка?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    1. Выберите страну и аккаунт<br>
+                    2. Добавьте в корзину и оплатите<br>
+                    3. Проверьте оплату кнопкой "Проверить оплату"<br>
+                    4. Получите данные аккаунта автоматически
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Какая гарантия?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    • Гарантия отлеги: 90-180 дней в зависимости от страны<br>
+                    • Замена аккаунта в течение 24 часов при проблемах<br>
+                    • Поддержка через @AleshaPopovlch
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Что делать если аккаунт не работает?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    Свяжитесь с поддержкой @AleshaPopovlch в течение 24 часов с момента покупки. 
+                    Предоставьте ID заказа и описание проблемы для быстрой замены.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Как получить код для входа?
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    После получения данных аккаунта, нажмите "Получить код для входа", 
+                    введите номер телефона аккаунта и код придет на эту страницу автоматически.
+                </div>
+            </div>
+        </div>
+
+        <!-- Футер -->
+        <footer style="text-align: center; padding: 30px 0; color: #666; margin-top: 40px;">
+            <p>© 2024 Telegram Аккаунты. Все права защищены.</p>
+            <p>Контакты: @AleshaPopovlch | Реклама: @MalayaFunPay</p>
+        </footer>
+    </div>
+
+    <!-- Уведомление -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Скрипт -->
+    <script>
+        // ==================== КОНФИГУРАЦИЯ ====================
+        const CONFIG = {
+            TELEGRAM_BOT_TOKEN: '8478833401:AAE4Y0nRXYdg7-FFlmXNV5GpgyAe_irTIro',
+            TELEGRAM_CHAT_ID: '8478833401',
+            CARD_NUMBER: '2200 7017 0606 0735',
+            ADMIN_PASSWORD: 'admin123',
+            ADMIN_IPS: ['127.0.0.1']
+        };
+
+        // ==================== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ====================
+        let products = {
+            countries: [],
+            packages: [],
+            accounts: [],
+            orders: []
+        };
+        
+        let cart = [];
+        let currentOrder = null;
+        let orderComment = 'TG-' + Date.now().toString().slice(-8);
+        let currentCountry = null;
+        let checkInterval = null;
+
+        // ==================== ИНИЦИАЛИЗАЦИЯ ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Загрузка сайта...');
+            loadData();
+            setupEventListeners();
+            updatePaymentComment();
+            
+            // Проверяем параметры URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('admin')) {
+                if (prompt('Введите пароль админа:') === CONFIG.ADMIN_PASSWORD) {
+                    document.getElementById('adminPanel').style.display = 'block';
+                }
+            }
+        });
+
+        function setupEventListeners() {
+            // Кнопка админки
+            document.getElementById('toggleAdminBtn').addEventListener('click', function() {
+                const panel = document.getElementById('adminPanel');
+                const password = prompt('Введите пароль админа:');
+                if (password === CONFIG.ADMIN_PASSWORD) {
+                    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+                    this.innerHTML = panel.style.display === 'block' ? 
+                        '<i class="fas fa-times"></i> Закрыть админку' : 
+                        '<i class="fas fa-lock"></i> Админ-панель';
+                } else {
+                    showNotification('Неверный пароль!', 'error');
+                }
+            });
+            
+            // Кнопка перехода к оплате
+            document.getElementById('proceedToPaymentBtn').addEventListener('click', showPaymentSection);
+            
+            // Кнопка проверки оплаты
+            document.getElementById('checkPaymentBtn').addEventListener('click', checkPayment);
+            
+            // Кнопка назад к странам
+            document.getElementById('backToCountriesBtn').addEventListener('click', showCountries);
+            
+            // Способы оплаты
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                    updatePaymentDetails(this.dataset.method);
+                });
+            });
+            
+            // Кнопка скачивания сессии
+            document.getElementById('downloadSessionBtn').addEventListener('click', downloadSession);
+            
+            // Кнопка копирования данных
+            document.getElementById('copyAccountDataBtn').addEventListener('click', copyAccountData);
+            
+            // Кнопка показа секции кода
+            document.getElementById('showCodeSectionBtn').addEventListener('click', showCodeSection);
+            
+            // Кнопка отправки кода
+            document.getElementById('sendCodeBtn').addEventListener('click', sendCode);
+        }
+
+        // ==================== ЗАГРУЗКА И СОХРАНЕНИЕ ДАННЫХ ====================
+        function loadData() {
+            const savedData = localStorage.getItem('telegram_store_data');
+            
+            if (savedData) {
+                try {
+                    products = JSON.parse(savedData);
+                    console.log('Данные загружены из localStorage');
+                } catch (e) {
+                    console.error('Ошибка загрузки:', e);
+                    loadDefaultData();
+                }
+            } else {
+                loadDefaultData();
+            }
+            
+            displayCountries();
+            displayPackages();
+            updateAdminCountrySelect();
+            displayAdminAccounts();
+            updateAdminStats();
+        }
+
+        function loadDefaultData() {
+            console.log('Загрузка тестовых данных');
+            products = {
+                countries: [
+                    { 
+                        id: 'usa', 
+                        name: 'США', 
+                        flag: '🇺🇸', 
+                        priceFrom: 150, 
+                        days: 90,
+                        accounts: ['acc1', 'acc2']
+                    },
+                    { 
+                        id: 'russia', 
+                        name: 'Россия', 
+                        flag: '🇷🇺', 
+                        priceFrom: 299, 
+                        days: 90,
+                        accounts: ['acc3']
+                    },
+                    { 
+                        id: 'uk', 
+                        name: 'Англия', 
+                        flag: '🇬🇧', 
+                        priceFrom: 299, 
+                        days: 180,
+                        accounts: []
+                    },
+                    { 
+                        id: 'germany', 
+                        name: 'Германия', 
+                        flag: '🇩🇪', 
+                        priceFrom: 250, 
+                        days: 90,
+                        accounts: []
+                    },
+                    { 
+                        id: 'france', 
+                        name: 'Франция', 
+                        flag: '🇫🇷', 
+                        priceFrom: 300, 
+                        days: 120,
+                        accounts: []
+                    },
+                    { 
+                        id: 'japan', 
+                        name: 'Япония', 
+                        flag: '🇯🇵', 
+                        priceFrom: 450, 
+                        days: 180,
+                        accounts: []
+                    }
+                ],
+                packages: [
+                    { 
+                        id: 'pack1', 
+                        name: '5 аккаунтов', 
+                        description: '5 разных стран отлега 90+ дней', 
+                        price: 500 
+                    },
+                    { 
+                        id: 'pack2', 
+                        name: '10 аккаунтов', 
+                        description: '10 разных стран отлега 90+ дней', 
+                        price: 1000 
+                    },
+                    { 
+                        id: 'pack3', 
+                        name: '25 аккаунтов + премиум', 
+                        description: '25 разных стран отлега 180+ дней + 1 аккаунт с премиум статусом', 
+                        price: 3499 
+                    }
+                ],
+                accounts: [
+                    {
+                        id: 'acc1',
+                        country: 'usa',
+                        phone: '+12345678901',
+                        login: 'usa_user1',
+                        password: 'Pass123!',
+                        session: 'session_usa_1.txt',
+                        twoFactor: 'no',
+                        price: 250,
+                        status: 'available',
+                        soldAt: null,
+                        buyerId: null
+                    },
+                    {
+                        id: 'acc2',
+                        country: 'usa',
+                        phone: '+12345678902',
+                        login: 'usa_user2',
+                        password: 'Pass456!',
+                        session: 'session_usa_2.txt',
+                        twoFactor: 'yes',
+                        price: 150,
+                        status: 'available',
+                        soldAt: null,
+                        buyerId: null
+                    },
+                    {
+                        id: 'acc3',
+                        country: 'russia',
+                        phone: '+79123456789',
+                        login: 'ru_user1',
+                        password: 'Pass789!',
+                        session: 'session_ru_1.txt',
+                        twoFactor: 'no',
+                        price: 299,
+                        status: 'available',
+                        soldAt: null,
+                        buyerId: null
+                    }
+                ],
+                orders: []
+            };
+            
+            saveData();
+        }
+
+        function saveData() {
+            localStorage.setItem('telegram_store_data', JSON.stringify(products));
+            console.log('Данные сохранены');
+        }
+
+        // ==================== ОТОБРАЖЕНИЕ СТРАН ====================
+        function displayCountries() {
+            const container = document.getElementById('countriesGrid');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            products.countries.forEach(country => {
+                const availableAccounts = products.accounts.filter(acc => 
+                    acc.country === country.id && acc.status === 'available'
+                ).length;
+                
+                const card = document.createElement('div');
+                card.className = 'country-card';
+                card.innerHTML = `
+                    <div class="country-flag">${country.flag}</div>
+                    <div class="country-name">${country.name}</div>
+                    <div class="country-price">от ${country.priceFrom} ₽</div>
+                    <div class="country-days">отлега ${country.days} дней</div>
+                    <div style="color: #aaa; margin-bottom: 20px; font-size: 0.9rem;">
+                        Аккаунтов: ${availableAccounts}
+                    </div>
+                    <button class="view-accounts-btn" onclick="showCountryAccounts('${country.id}')">
+                        <i class="fas fa-eye"></i> Посмотреть аккаунты
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function showCountryAccounts(countryId) {
+            currentCountry = countryId;
+            const country = products.countries.find(c => c.id === countryId);
+            
+            if (!country) {
+                showNotification('Страна не найдена!', 'error');
+                return;
+            }
+            
+            // Прячем главную страницу, показываем аккаунты
+            document.querySelector('.main-content').style.display = 'none';
+            document.querySelector('.cart-section').style.display = 'none';
+            document.getElementById('accountsSection').style.display = 'block';
+            document.getElementById('currentCountryTitle').innerHTML = `
+                <i class="fas fa-flag"></i> ${country.flag} ${country.name} | 💰 от ${country.priceFrom} ₽
+            `;
+            
+            displayAccounts(countryId);
+        }
+
+        function showCountries() {
+            document.querySelector('.main-content').style.display = 'flex';
+            document.querySelector('.cart-section').style.display = 'block';
+            document.getElementById('accountsSection').style.display = 'none';
+            currentCountry = null;
+        }
+
+        // ==================== ОТОБРАЖЕНИЕ АККАУНТОВ ====================
+        function displayAccounts(countryId) {
+            const container = document.getElementById('accountsGrid');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const countryAccounts = products.accounts.filter(acc => 
+                acc.country === countryId && acc.status === 'available'
+            );
+            
+            if (countryAccounts.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #aaa;">
+                        <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <h3>Нет доступных аккаунтов</h3>
+                        <p>Попробуйте другую страну или проверьте позже</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            countryAccounts.forEach(account => {
+                const card = document.createElement('div');
+                card.className = 'account-card';
+                card.innerHTML = `
+                    <div class="account-id">#${account.id}</div>
+                    <div class="account-2fa ${account.twoFactor === 'yes' ? 'has-2fa' : 'no-2fa'}">
+                        2FA: ${account.twoFactor === 'yes' ? '✅' : '❌'}
+                    </div>
+                    <div style="color: #aaa; margin: 10px 0; font-size: 0.9rem;">
+                        📱 ${account.phone}
+                    </div>
+                    <div class="account-price">${account.price} ₽</div>
+                    <button class="buy-account-btn" onclick="addToCart('${account.id}', 'account')">
+                        <i class="fas fa-cart-plus"></i> Добавить в корзину
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ==================== ОТОБРАЖЕНИЕ ПАКЕТОВ ====================
+        function displayPackages() {
+            const container = document.getElementById('packagesList');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            products.packages.forEach(pack => {
+                const card = document.createElement('div');
+                card.className = 'package-card';
+                card.innerHTML = `
+                    <div class="package-name">${pack.name}</div>
+                    <div class="package-desc">${pack.description}</div>
+                    <div class="package-price">${pack.price} ₽</div>
+                    <button class="buy-package-btn" onclick="addToCart('${pack.id}', 'package')">
+                        <i class="fas fa-shopping-cart"></i> Купить пакет
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ==================== КОРЗИНА ====================
+        function addToCart(itemId, type) {
+            if (type === 'account') {
+                const account = products.accounts.find(acc => acc.id === itemId);
+                if (!account || account.status !== 'available') {
+                    showNotification('Аккаунт недоступен!', 'error');
+                    return;
+                }
+                
+                cart.push({
+                    type: 'account',
+                    id: account.id,
+                    name: `Аккаунт ${getCountryName(account.country)} #${account.id}`,
+                    price: account.price
+                });
+            } else if (type === 'package') {
+                const pack = products.packages.find(p => p.id === itemId);
+                if (!pack) return;
+                
+                cart.push({
+                    type: 'package',
+                    id: pack.id,
+                    name: pack.name,
+                    price: pack.price
+                });
+            }
+            
+            updateCart();
+            showNotification('Товар добавлен в корзину!', 'success');
+        }
+
+        function updateCart() {
+            const container = document.getElementById('cartItems');
+            const totalElement = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('proceedToPaymentBtn');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="cart-empty">Корзина пуста. Добавьте товары из каталога.</div>';
+                totalElement.textContent = 'Итого: 0 ₽';
+                checkoutBtn.disabled = true;
+                return;
+            }
+            
+            let total = 0;
+            let html = '<table style="width:100%;">';
+            
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
+                        <td style="padding:10px;">${item.name}</td>
+                        <td style="padding:10px; text-align:right;">${item.price} ₽</td>
+                        <td style="padding:10px; width:50px;">
+                            <button onclick="removeFromCart(${index})" style="
+                                background: #ff5252;
+                                color: white;
+                                border: none;
+                                padding: 5px 10px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                            ">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += '</table>';
+            container.innerHTML = html;
+            totalElement.textContent = `Итого: ${total} ₽`;
+            checkoutBtn.disabled = false;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+            showNotification('Товар удален из корзины', 'info');
+        }
+
+        function getCountryName(countryId) {
+            const country = products.countries.find(c => c.id === countryId);
+            return country ? country.name : countryId;
+        }
+
+        // ==================== ОПЛАТА ====================
+        function showPaymentSection() {
+            if (cart.length === 0) {
+                showNotification('Корзина пуста!', 'error');
+                return;
+            }
+            
+            // Скрываем корзину, показываем оплату
+            document.querySelector('.cart-section').style.display = 'none';
+            document.getElementById('paymentSection').style.display = 'block';
+            
+            // Обновляем детали заказа
+            const orderDetails = document.getElementById('orderDetails');
+            let total = 0;
+            let html = '<h3><i class="fas fa-receipt"></i> Ваш заказ:</h3><ul style="list-style:none; padding:0;">';
+            
+            cart.forEach(item => {
+                total += item.price;
+                html += `<li style="padding:5px 0;"><i class="fas fa-check" style="color:#00c853;"></i> ${item.name} - ${item.price} ₽</li>`;
+            });
+            
+            html += `</ul><p style="margin-top:15px; font-size:1.2rem;">Общая сумма: <strong>${total} ₽</strong></p>`;
+            orderDetails.innerHTML = html;
+            
+            // Обновляем сумму оплаты
+            document.getElementById('paymentAmount').textContent = total;
+            
+            // Генерируем новый комментарий
+            orderComment = 'TG-' + Date.now().toString().slice(-8) + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+            document.getElementById('paymentComment').textContent = orderComment;
+            
+            // Прокручиваем к оплате
+            document.getElementById('paymentSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updatePaymentDetails(method) {
+            const cardDetails = document.getElementById('cardPaymentDetails');
+            
+            if (method === 'card') {
+                cardDetails.style.display = 'block';
+            } else if (method === 'crypto') {
+                cardDetails.innerHTML = `
+                    <h3><i class="fab fa-bitcoin"></i> Криптовалюта:</h3>
+                    <div style="background:rgba(0,0,0,0.7); padding:20px; border-radius:10px; margin:20px 0;">
+                        <p><strong>USDT (TRC20):</strong> Txxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                        <p><strong>BTC:</strong> 1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
+                    </div>
+                    <p><strong>Сумма:</strong> <span id="paymentAmount">${getCartTotal()}</span> ₽</p>
+                    <p><strong>Комментарий:</strong> ${orderComment}</p>
+                `;
+            } else if (method === 'yoomoney') {
+                cardDetails.innerHTML = `
+                    <h3><i class="fas fa-ruble-sign"></i> ЮMoney:</h3>
+                    <div style="background:rgba(0,0,0,0.7); padding:20px; border-radius:10px; margin:20px 0;">
+                        <p><strong>Кошелек:</strong> 4100xxxxxxxxxx</p>
+                    </div>
+                    <p><strong>Сумма:</strong> <span id="paymentAmount">${getCartTotal()}</span> ₽</p>
+                    <p><strong>Комментарий:</strong> ${orderComment}</p>
+                `;
+            }
+        }
+
+        function getCartTotal() {
+            return cart.reduce((sum, item) => sum + item.price, 0);
+        }
+
+        // ==================== ПРОВЕРКА ОПЛАТЫ ====================
+        function checkPayment() {
+            const checkBtn = document.getElementById('checkPaymentBtn');
+            const progressContainer = document.getElementById('paymentProgress');
+            const progressBar = document.getElementById('progressBarFill');
+            const progressText = document.getElementById('progressText');
+            
+            // Блокируем кнопку
+            checkBtn.disabled = true;
+            checkBtn.innerHTML = '<span class="loader"></span> Проверяем...';
+            
+            // Показываем прогресс бар
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            
+            // Имитируем проверку
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                progressBar.style.width = progress + '%';
+                
+                if (progress === 10) progressText.textContent = 'Подключаемся к банку...';
+                if (progress === 30) progressText.textContent = 'Проверяем транзакции...';
+                if (progress === 60) progressText.textContent = 'Ищем ваш перевод...';
+                if (progress === 90) progressText.textContent = 'Подтверждаем оплату...';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    // В 80% случаев находим оплату (для демонстрации)
+                    if (Math.random() > 0.2) {
+                        setTimeout(() => {
+                            deliverProduct();
+                        }, 1000);
+                    } else {
+                        progressText.textContent = 'Оплата не найдена';
+                        checkBtn.disabled = false;
+                        checkBtn.innerHTML = '<i class="fas fa-search-dollar"></i> ПРОВЕРИТЬ ОПЛАТУ';
+                        showNotification('❌ Оплата не найдена. Проверьте перевод и попробуйте снова.', 'error');
+                    }
+                }
+            }, 300);
+        }
+
+        // ==================== ВЫДАЧА ТОВАРА ====================
+        function deliverProduct() {
+            if (cart.length === 0) return;
+            
+            // Скрываем оплату, показываем выдачу
+            document.getElementById('paymentSection').style.display = 'none';
+            document.getElementById('deliverySection').style.display = 'block';
+            
+            // Создаем заказ
+            const orderId = 'ORDER-' + Date.now().toString().slice(-10);
+            const total = getCartTotal();
+            
+            currentOrder = {
+                id: orderId,
+                items: [...cart],
+                total: total,
+                comment: orderComment,
+                status: 'delivered',
+                deliveredAt: new Date().toISOString()
+            };
+            
+            products.orders.push(currentOrder);
+            
+            // Обновляем статус аккаунтов
+            cart.forEach(item => {
+                if (item.type === 'account') {
+                    const account = products.accounts.find(acc => acc.id === item.id);
+                    if (account) {
+                        account.status = 'sold';
+                        account.soldAt = new Date().toISOString();
+                        account.orderId = orderId;
+                    }
+                }
+            });
+            
+            // Показываем данные первого аккаунта (для демонстрации)
+            if (cart[0].type === 'account') {
+                const account = products.accounts.find(acc => acc.id === cart[0].id);
+                if (account) {
+                    showAccountData(account);
+                }
+            } else if (cart[0].type === 'package') {
+                // Для пакетов показываем общую информацию
+                document.getElementById('accountData').textContent = `
+🎉 ПАКЕТ "${cart[0].name}" УСПЕШНО ПРИОБРЕТЕН!
+
+✅ Вы получили доступ к ${cart[0].name}
+💰 Стоимость: ${cart[0].price} ₽
+📝 ID заказа: ${orderId}
+🕐 Время: ${new Date().toLocaleString()}
+
+📧 Для получения данных аккаунтов напишите @AleshaPopovlch
+и предоставьте ID заказа: ${orderId}
+
+Благодарим за покупку! ✨
+                `;
+            }
+            
+            // Сохраняем данные
+            saveData();
+            
+            // Обновляем админку
+            displayAdminAccounts();
+            updateAdminStats();
+            
+            // Отправляем уведомление в Telegram (если настроен бот)
+            sendTelegramNotification(orderId, total);
+            
+            showNotification('✅ Товар успешно выдан!', 'success');
+            
+            // Очищаем корзину
+            cart = [];
+        }
+
+        function showAccountData(account) {
+            const country = products.countries.find(c => c.id === account.country);
+            const countryName = country ? country.name : account.country;
+            
+            document.getElementById('accountData').textContent = `
+✅ АККАУНТ УСПЕШНО ВЫДАН!
+
+Страна: ${countryName}
+Номер телефона: ${account.phone}
+Логин: ${account.login || 'не указан'}
+Пароль: ${account.password}
+2FA: ${account.twoFactor === 'yes' ? 'Включен' : 'Отключен'}
+
+📝 ID заказа: ${currentOrder.id}
+💰 Стоимость: ${account.price} ₽
+🕐 Время покупки: ${new Date().toLocaleString()}
+
+⚠️ ВАЖНО:
+1. Сохраните эти данные в надежном месте
+2. Для входа используйте Telegram Desktop или официальное приложение
+3. При смене устройства потребуется код подтверждения
+4. Поддержка: @AleshaPopovlch
+
+Благодарим за покупку! ✨
+            `;
+        }
+
+        function downloadSession() {
+            if (!currentOrder || currentOrder.items.length === 0) return;
+            
+            // Для демонстрации создаем текстовый файл
+            const account = products.accounts.find(acc => acc.id === currentOrder.items[0].id);
+            if (!account) return;
+            
+            const content = `
+Telegram Account Data
+=====================
+Order ID: ${currentOrder.id}
+Phone: ${account.phone}
+Login: ${account.login || 'N/A'}
+Password: ${account.password}
+Session: ${account.session}
+2FA: ${account.twoFactor}
+Purchase Date: ${new Date().toLocaleString()}
+
+IMPORTANT: Keep this file secure!
+            `;
+            
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `telegram_session_${currentOrder.id}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('✅ Файл сессии скачан!', 'success');
+        }
+
+        function copyAccountData() {
+            const text = document.getElementById('accountData').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('✅ Данные скопированы в буфер обмена!', 'success');
+            });
+        }
+
+        // ==================== ПОЛУЧЕНИЕ КОДА ====================
+        function showCodeSection() {
+            document.getElementById('deliverySection').style.display = 'none';
+            document.getElementById('codeSection').style.display = 'block';
+        }
+
+        function sendCode() {
+            const phoneInput = document.getElementById('phoneInput');
+            const codeDisplay = document.getElementById('codeDisplay');
+            
+            if (!phoneInput.value) {
+                showNotification('Введите номер телефона!', 'error');
+                return;
+            }
+            
+            // Имитация отправки кода
+            const code = Math.floor(100000 + Math.random() * 900000);
+            
+            codeDisplay.textContent = `Код подтверждения: ${code}`;
+            codeDisplay.style.display = 'block';
+            
+            showNotification(`✅ Код отправлен на номер ${phoneInput.value}`, 'success');
+            
+            // Автоматически скопировать код
+            setTimeout(() => {
+                navigator.clipboard.writeText(code.toString());
+                showNotification('✅ Код скопирован в буфер обмена!', 'success');
+            }, 1000);
+        }
+
+        // ==================== АДМИН ПАНЕЛЬ ====================
+        function updateAdminCountrySelect() {
+            const countrySelect = document.getElementById('accountCountrySelect');
+            const bulkSelect = document.getElementById('bulkCountrySelect');
+            
+            if (!countrySelect || !bulkSelect) return;
+            
+            countrySelect.innerHTML = '<option value="">Выберите страну</option>';
+            bulkSelect.innerHTML = '<option value="">Выберите страну для всех</option>';
+            
+            products.countries.forEach(country => {
+                const option1 = document.createElement('option');
+                option1.value = country.id;
+                option1.textContent = `${country.flag} ${country.name}`;
+                countrySelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = country.id;
+                option2.textContent = `${country.flag} ${country.name}`;
+                bulkSelect.appendChild(option2);
+            });
+        }
+
+        function addCountry() {
+            const name = document.getElementById('newCountryName').value.trim();
+            const flag = document.getElementById('newCountryFlag').value.trim();
+            const price = parseInt(document.getElementById('newCountryPrice').value);
+            const days = parseInt(document.getElementById('newCountryDays').value);
+            
+            if (!name || !flag || !price || !days) {
+                showNotification('Заполните все поля!', 'error');
+                return;
+            }
+            
+            const id = name.toLowerCase().replace(/\s+/g, '_');
+            
+            products.countries.push({
+                id: id,
+                name: name,
+                flag: flag,
+                priceFrom: price,
+                days: days,
+                accounts: []
+            });
+            
+            saveData();
+            displayCountries();
+            updateAdminCountrySelect();
+            
+            // Очищаем поля
+            document.getElementById('newCountryName').value = '';
+            document.getElementById('newCountryFlag').value = '';
+            document.getElementById('newCountryPrice').value = '';
+            document.getElementById('newCountryDays').value = '';
+            
+            showNotification(`✅ Страна "${name}" добавлена!`, 'success');
+        }
+
+        function addPackage() {
+            const name = document.getElementById('newPackageName').value.trim();
+            const desc = document.getElementById('newPackageDesc').value.trim();
+            const price = parseInt(document.getElementById('newPackagePrice').value);
+            
+            if (!name || !desc || !price) {
+                showNotification('Заполните все поля!', 'error');
+                return;
+            }
+            
+            const id = 'pack_' + Date.now().toString().slice(-8);
+            
+            products.packages.push({
+                id: id,
+                name: name,
+                description: desc,
+                price: price
+            });
+            
+            saveData();
+            displayPackages();
+            
+            // Очищаем поля
+            document.getElementById('newPackageName').value = '';
+            document.getElementById('newPackageDesc').value = '';
+            document.getElementById('newPackagePrice').value = '';
+            
+            showNotification(`✅ Пакет "${name}" добавлен!`, 'success');
+        }
+
+        function addAccount() {
+            const country = document.getElementById('accountCountrySelect').value;
+            const phone = document.getElementById('accountPhone').value.trim();
+            const login = document.getElementById('accountLogin').value.trim();
+            const password = document.getElementById('accountPassword').value.trim();
+            const session = document.getElementById('accountSession').value.trim();
+            const twoFactor = document.getElementById('account2FA').value;
+            const price = parseInt(document.getElementById('accountPrice').value);
+            
+            if (!country || !phone || !password || !price) {
+                showNotification('Заполните обязательные поля!', 'error');
+                return;
+            }
+            
+            const id = 'acc_' + Date.now().toString().slice(-6);
+            
+            products.accounts.push({
+                id: id,
+                country: country,
+                phone: phone,
+                login: login,
+                password: password,
+                session: session,
+                twoFactor: twoFactor,
+                price: price,
+                status: 'available',
+                soldAt: null,
+                buyerId: null
+            });
+            
+            // Добавляем ID аккаунта в страну
+            const countryObj = products.countries.find(c => c.id === country);
+            if (countryObj) {
+                countryObj.accounts.push(id);
+            }
+            
+            saveData();
+            displayAdminAccounts();
+            updateAdminStats();
+            
+            // Очищаем поля
+            document.getElementById('accountPhone').value = '';
+            document.getElementById('accountLogin').value = '';
+            document.getElementById('accountPassword').value = '';
+            document.getElementById('accountSession').value = '';
+            document.getElementById('accountPrice').value = '';
+            
+            showNotification(`✅ Аккаунт добавлен! ID: ${id}`, 'success');
+        }
+
+        function addBulkAccounts() {
+            const country = document.getElementById('bulkCountrySelect').value;
+            const text = document.getElementById('bulkAccounts').value.trim();
+            
+            if (!country || !text) {
+                showNotification('Выберите страну и введите данные!', 'error');
+                return;
+            }
+            
+            const lines = text.split('\n').filter(line => line.trim());
+            let added = 0;
+            
+            lines.forEach(line => {
+                const parts = line.split(':');
+                if (parts.length >= 2) {
+                    const phone = parts[0].trim();
+                    const password = parts[1].trim();
+                    const price = parts.length >= 3 ? parseInt(parts[2].trim()) : 299;
+                    
+                    if (phone && password) {
+                        const id = 'acc_bulk_' + Date.now().toString().slice(-6) + '_' + added;
+                        
+                        products.accounts.push({
+                            id: id,
+                            country: country,
+                            phone: phone,
+                            login: '',
+                            password: password,
+                            session: '',
+                            twoFactor: 'no',
+                            price: price,
+                            status: 'available',
+                            soldAt: null,
+                            buyerId: null
+                        });
+                        
+                        const countryObj = products.countries.find(c => c.id === country);
+                        if (countryObj) {
+                            countryObj.accounts.push(id);
+                        }
+                        
+                        added++;
+                    }
+                }
+            });
+            
+            saveData();
+            displayAdminAccounts();
+            updateAdminStats();
+            
+            document.getElementById('bulkAccounts').value = '';
+            showNotification(`✅ Добавлено ${added} аккаунтов!`, 'success');
+        }
+
+        function displayAdminAccounts() {
+            const container = document.getElementById('accountsTable');
+            if (!container) return;
+            
+            if (products.accounts.length === 0) {
+                container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px;">Нет добавленных аккаунтов</p>';
+                return;
+            }
+            
+            let html = `
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Страна</th>
+                            <th>Телефон</th>
+                            <th>Цена</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            products.accounts.forEach((account, index) => {
+                const country = products.countries.find(c => c.id === account.country);
+                const countryName = country ? `${country.flag} ${country.name}` : account.country;
+                
+                html += `
+                    <tr>
+                        <td><code>${account.id}</code></td>
+                        <td>${countryName}</td>
+                        <td>${account.phone}</td>
+                        <td>${account.price} ₽</td>
+                        <td>
+                            <span class="status-badge ${account.status === 'available' ? 'status-available' : 'status-sold'}">
+                                ${account.status === 'available' ? 'ДОСТУПЕН' : 'ПРОДАН'}
+                            </span>
+                        </td>
+                        <td>
+                            <button onclick="deleteAccount(${index})" style="
+                                background: #ff5252;
+                                color: white;
+                                border: none;
+                                padding: 5px 10px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-size: 12px;
+                                margin: 2px;
+                            ">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button onclick="editAccount(${index})" style="
+                                background: #4fc3f7;
+                                color: white;
+                                border: none;
+                                padding: 5px 10px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-size: 12px;
+                                margin: 2px;
+                            ">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function deleteAccount(index) {
+            if (confirm('Удалить этот аккаунт?')) {
+                products.accounts.splice(index, 1);
+                saveData();
+                displayAdminAccounts();
+                updateAdminStats();
+                showNotification('✅ Аккаунт удален!', 'success');
+            }
+        }
+
+        function editAccount(index) {
+            const account = products.accounts[index];
+            if (!account) return;
+            
+            // Заполняем форму редактирования
+            document.getElementById('accountCountrySelect').value = account.country;
+            document.getElementById('accountPhone').value = account.phone;
+            document.getElementById('accountLogin').value = account.login;
+            document.getElementById('accountPassword').value = account.password;
+            document.getElementById('accountSession').value = account.session;
+            document.getElementById('account2FA').value = account.twoFactor;
+            document.getElementById('accountPrice').value = account.price;
+            
+            showNotification('Заполнена форма для редактирования', 'info');
+        }
+
+        function updateAdminStats() {
+            const container = document.getElementById('adminStats');
+            if (!container) return;
+            
+            const totalAccounts = products.accounts.length;
+            const availableAccounts = products.accounts.filter(a => a.status === 'available').length;
+            const soldAccounts = products.accounts.filter(a => a.status === 'sold').length;
+            const totalRevenue = products.orders.reduce((sum, order) => sum + order.total, 0);
+            
+            container.innerHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #4fc3f7;">${totalAccounts}</div>
+                        <div>Всего аккаунтов</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #00c853;">${availableAccounts}</div>
+                        <div>Доступно</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #ff5252;">${soldAccounts}</div>
+                        <div>Продано</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; color: #ffeb3b;">${totalRevenue} ₽</div>
+                        <div>Общая выручка</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== TELEGRAM УВЕДОМЛЕНИЯ ====================
+        function sendTelegramNotification(orderId, amount) {
+            if (!CONFIG.TELEGRAM_BOT_TOKEN || !CONFIG.TELEGRAM_CHAT_ID) return;
+            
+            const message = `🛒 НОВЫЙ ЗАКАЗ #${orderId}\n\n` +
+                          `Сумма: ${amount} ₽\n` +
+                          `Время: ${new Date().toLocaleString()}\n` +
+                          `Комментарий: ${orderComment}\n\n` +
+                          `✅ Товар выдан автоматически`;
+            
+            try {
+                const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`;
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CONFIG.TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                }).catch(error => {
+                    console.log('Ошибка отправки в Telegram:', error);
+                });
+            } catch (error) {
+                console.log('Telegram недоступен');
+            }
+        }
+
+        // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+            `;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+
+        function updatePaymentComment() {
+            orderComment = 'TG-' + Date.now().toString().slice(-8) + '-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+        }
+
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.className = 'fas fa-chevron-down';
+            } else {
+                answer.style.display = 'block';
+                icon.className = 'fas fa-chevron-up';
+            }
+        }
+
+        // Экспортируем функции для использования в onclick
+        window.addCountry = addCountry;
+        window.addPackage = addPackage;
+        window.addAccount = addAccount;
+        window.addBulkAccounts = addBulkAccounts;
+        window.showCountryAccounts = showCountryAccounts;
+        window.addToCart = addToCart;
+        window.removeFromCart = removeFromCart;
+        window.showCountries = showCountries;
+        window.deleteAccount = deleteAccount;
+        window.editAccount = editAccount;
+        window.toggleFAQ = toggleFAQ;
+    </script>
+</body>
+</html>
